@@ -1,9 +1,21 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
+import { reactive } from 'vue';
 import domtoimage from 'dom-to-image';
+import { useI18n } from "vue-i18n";
+
+const { t, locale } = useI18n();
+
+const changeLang = () => {
+  console.log(locale.value, 'triggered!');
+  if (locale.value == "cn") {
+    locale.value = "en";
+  } else {
+    locale.value = "cn";
+  }
+}
 
 type PersonalIntroduction = {
-  name: string,
+  // name: string,
   content: string
 }
 type img = {
@@ -13,7 +25,7 @@ type img = {
 }
 const userName = "小羊小羊懒得吃草";
 const userIntroduction: PersonalIntroduction = {
-  name: "个人简介: ",
+  // name: "个人简介: ",
   content: "有点自闭，喜欢打打派，看看电影，听听歌，这里加点私货，狠狠推荐阿张的 \"ED是男人的福报\"！"
 }
 const imgArr: img[] = [
@@ -120,7 +132,8 @@ const downloadInfoCard = () => {
         <div>
           <p
             :class="{ introduction: true, introductionDay: dayclass.value, introductionNight: !dayclass.value, introductionExpand: expandclass.value, introductionSimple: !expandclass.value }">
-            <span>{{ userIntroduction.name }}</span>{{ userIntroduction.content }}
+            <!-- <span>{{ userIntroduction.name }}</span>{{ userIntroduction.content }} -->
+            <span>{{ t("card.profile") }}</span>{{ userIntroduction.content }}
           </p>
         </div>
       </div>
@@ -142,6 +155,9 @@ const downloadInfoCard = () => {
             <img class="icon-switch" @click="downloadInfoCard()" :src="imgArr[4].address" :alt="imgArr[4].description"
               :title="imgArr[4].description">
           </div>
+          <div class="lan-switch">
+            <span :class="{iconSwitch: true, lanSwitchLight: dayclass.value, lanSwitchNight: !dayclass.value}" @click="changeLang()" :title="t('card.lanSwtichTip')">{{ t('card.lan') }}</span>
+          </div>
         </div>
         <div
           :class="{ companyLogoContainer: true, companyLogoContainerExpand: expandclass.value, companyLogoContainerSimple: !expandclass.value }">
@@ -150,8 +166,7 @@ const downloadInfoCard = () => {
             viewBox="0 0 136.28 28">
             <path d="M17.59,17.4h0L28.52,8.77l-3-2.38-8,6.29h0l-8-6.28-3,2.38L17.58,17.4Z" style="fill:#0f1931" />
             <path d="M17.59,6.77l4.23-3.36L17.59,0h0L13.36,3.4l4.22,3.37Z" style="fill:#0f1931" />
-            <path d="M17.59,23.29h0L3,11.75,0,14.13l.28.23L17.59,28l10.93-8.62,6.66-5.25-3-2.38Z"
-              style="fill:#0f1931" />
+            <path d="M17.59,23.29h0L3,11.75,0,14.13l.28.23L17.59,28l10.93-8.62,6.66-5.25-3-2.38Z" style="fill:#0f1931" />
             <path
               d="M133.29,18.42h-2.13l-1.24,4.66h-3.1V16.76h8.54v-2h-8.54V11.15h6.25v-2H118.45v2h6.25v3.58h-8.54v2h8.54v6.32h-3.1l-1.24-4.66h-2.12l1.25,4.66h-3.95v2H136v-2h-4Z"
               style="fill:#0f1931" />
@@ -169,8 +184,7 @@ const downloadInfoCard = () => {
               style="fill:#0f1931" />
             <path d="M53,2.92V4.84l3.59,1.27L53,7.39V9.31l6.29-2.24,6.28,2.24V7.39L62,6.11l3.58-1.27V2.92L59.29,5.15Z"
               style="fill:#0f1931" />
-            <path d="M80,11.7h8.64V9.48H80V2.8H77.53V9.48H68.89V11.7h8.64V23H67.76V25.2h22V23H80Z"
-              style="fill:#0f1931" />
+            <path d="M80,11.7h8.64V9.48H80V2.8H77.53V9.48H68.89V11.7h8.64V23H67.76V25.2h22V23H80Z" style="fill:#0f1931" />
             <path d="M49,5.39l3.34-.21V3.24l-8.61.54v2L47,5.51v3H43.58v1.91H47V25.16H49V10.42h3.44V8.51H49Z"
               style="fill:#0f1931" />
             <path
@@ -182,8 +196,7 @@ const downloadInfoCard = () => {
           <svg class="company-logo" v-else data-name="图层 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 136.28 28">
             <path d="M17.59,17.4h0L28.52,8.77l-3-2.38-8,6.29h0l-8-6.28-3,2.38L17.58,17.4Z" style="fill:#abcbf1" />
             <path d="M17.59,6.77l4.23-3.36L17.59,0h0L13.36,3.4l4.22,3.37Z" style="fill:#abcbf1" />
-            <path d="M17.59,23.29h0L3,11.75,0,14.13l.28.23L17.59,28l10.93-8.62,6.66-5.25-3-2.38Z"
-              style="fill:#abcbf1" />
+            <path d="M17.59,23.29h0L3,11.75,0,14.13l.28.23L17.59,28l10.93-8.62,6.66-5.25-3-2.38Z" style="fill:#abcbf1" />
             <path
               d="M133.29,18.42h-2.13l-1.24,4.66h-3.1V16.76h8.54v-2h-8.54V11.15h6.25v-2H118.45v2h6.25v3.58h-8.54v2h8.54v6.32h-3.1l-1.24-4.66h-2.12l1.25,4.66h-3.95v2H136v-2h-4Z"
               style="fill:#abcbf1" />
@@ -201,8 +214,7 @@ const downloadInfoCard = () => {
               style="fill:#abcbf1" />
             <path d="M53,2.92V4.84l3.59,1.27L53,7.39V9.31l6.29-2.24,6.28,2.24V7.39L62,6.11l3.58-1.27V2.92L59.29,5.15Z"
               style="fill:#abcbf1" />
-            <path d="M80,11.7h8.64V9.48H80V2.8H77.53V9.48H68.89V11.7h8.64V23H67.76V25.2h22V23H80Z"
-              style="fill:#abcbf1" />
+            <path d="M80,11.7h8.64V9.48H80V2.8H77.53V9.48H68.89V11.7h8.64V23H67.76V25.2h22V23H80Z" style="fill:#abcbf1" />
             <path d="M49,5.39l3.34-.21V3.24l-8.61.54v2L47,5.51v3H43.58v1.91H47V25.16H49V10.42h3.44V8.51H49Z"
               style="fill:#abcbf1" />
             <path
@@ -374,7 +386,8 @@ p {
   display: block;
 }
 
-.introduction span {
+.introduction span 
+{
   font-weight: bold;
 }
 
@@ -401,6 +414,33 @@ p {
 .icon-switch {
   width: 2.4vw;
   height: 2.4vw;
+}
+
+.lan-switch {
+  transform: translateY(-0.1vw);
+}
+
+.iconSwitch {
+  width: 2.4vw;
+  height: 2.4vw;
+}
+
+/* span[class="iconSwitch"] {
+  margin-left: 0.2vw;
+  font-size: 1.5vw;
+  color: red;
+} */
+
+.lanSwitchLight {
+  margin-left: 0.2vw;
+  font-size: 1.5vw;
+  color: #707070;
+}
+
+.lanSwitchNight{
+  margin-left: 0.2vw;
+  font-size: 1.5vw;
+  color: #DEDEDE;
 }
 
 .icon-switch-light {

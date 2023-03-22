@@ -12,7 +12,8 @@
   "dependencies": {
     "dom-to-image": "^2.6.0",
     "html2canvas": "^1.4.1",
-    "vue": "^3.2.45"
+    "vue": "^3.2.45",
+    "vue-i18n": "^9.2.2"
   },
   "devDependencies": {
     "@types/dom-to-image": "^2.6.4",
