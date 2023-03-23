@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { reactive, onMounted } from 'vue';
 import domtoimage from 'dom-to-image';
 import { useI18n } from "vue-i18n";
+// import themeDetector from "./tools/LightDarkThemeDetector.js";
 
 const { t, locale } = useI18n();
 
@@ -108,6 +109,21 @@ const downloadInfoCard = () => {
       link.click();
     });
 }
+
+const themeDetector = () => {
+    if(window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+        return true;
+    }
+    return false;
+}
+
+onMounted(() => {
+  if(themeDetector() === nightMode.value) {
+    nightMode.switchFn();
+    console.log("themeChange!")
+  } 
+  // console.log(themeDetector());
+})
 </script>
 
 <template>
