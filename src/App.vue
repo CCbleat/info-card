@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { reactive, onMounted } from 'vue';
+import { reactive, onMounted, watch } from 'vue';
 import domtoimage from 'dom-to-image';
 import { useI18n } from "vue-i18n";
-import themeDetector from "./tools/LightDarkThemeDetector.js";
+import {themeDetector, macTheme} from "./tools/LightDarkThemeDetector.js";
 
 const { t, locale } = useI18n();
 
@@ -121,6 +121,19 @@ onMounted(() => {
   // } 
   // console.log(themeDetector());
 })
+
+watch(macTheme, (value, oldValue) => {
+  const ua = navigator.userAgent;
+  const mac = 'Mac';
+  if(ua.includes(mac)) {
+    console.log(value, oldValue);
+    // 避免初始化时 触发 初始化时oldvalue为undefined
+    if(oldValue != undefined && value != oldValue) {
+      nightMode.switchFn();
+      console.log("themeChange!")
+    }
+  }
+}, {immediate: true})
 </script>
 
 <template>
