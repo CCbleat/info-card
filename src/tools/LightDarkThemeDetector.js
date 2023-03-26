@@ -4,11 +4,11 @@
  */
 import { ref } from 'vue';
 
-let macTheme = ref(true);
+let macTheme = ref();
 
 const MacThemeDetector = () => {
     // 通过媒体查询来获取 和 系统主题相关的obj
-    const themeObj = window.matchMedia('(prefers-color-scheme: light)');
+    const themeObj = window.matchMedia('(prefers-color-scheme: dark)');
     // 监听系统主题的变化 如果有变化则也使应用主题 跟随变化
     themeObj.addEventListener('change', (event) => {
         if(event.matches) {

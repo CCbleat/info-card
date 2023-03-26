@@ -113,7 +113,7 @@ const downloadInfoCard = () => {
 onMounted(() => {
   if(themeDetector() !== nightMode.value) {
     nightMode.switchFn();
-    console.log("themeChange!")
+    // console.log("themeChange!")
   } 
   // if(themeDetector() === nightMode.value) {
   //   nightMode.switchFn();
@@ -126,11 +126,11 @@ watch(macTheme, (value, oldValue) => {
   const ua = navigator.userAgent;
   const mac = 'Mac';
   if(ua.includes(mac)) {
-    console.log(value, oldValue);
+    // console.log(value, oldValue);
     // 避免初始化时 触发 初始化时oldvalue为undefined
-    if(oldValue != undefined && value != oldValue) {
+    if(oldValue != undefined && value !== nightMode.value) {
       nightMode.switchFn();
-      console.log("themeChange!")
+      // console.log("themeChange!")
     }
   }
 }, {immediate: true})
